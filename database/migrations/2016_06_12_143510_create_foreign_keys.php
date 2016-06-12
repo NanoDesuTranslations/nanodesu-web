@@ -8,6 +8,26 @@ class CreateForeignKeys extends Migration {
 
 	public function up()
 	{
+		Schema::table('users', function(Blueprint $table) {
+			$table->foreign('role_id')->references('id')->on('roles')
+						->onDelete('restrict')
+						->onUpdate('restrict');
+		});
+		Schema::table('user_projects', function(Blueprint $table) {
+			$table->foreign('user_id')->references('id')->on('users')
+						->onDelete('restrict')
+						->onUpdate('restrict');
+		});
+		Schema::table('user_projects', function(Blueprint $table) {
+			$table->foreign('project_id')->references('id')->on('projects')
+						->onDelete('restrict')
+						->onUpdate('restrict');
+		});
+		Schema::table('user_projects', function(Blueprint $table) {
+			$table->foreign('role_id')->references('id')->on('roles')
+						->onDelete('restrict')
+						->onUpdate('restrict');
+		});
 		Schema::table('pages', function(Blueprint $table) {
 			$table->foreign('project_id')->references('id')->on('projects')
 						->onDelete('restrict')
@@ -33,10 +53,27 @@ class CreateForeignKeys extends Migration {
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
+		Schema::table('role_permissions', function(Blueprint $table) {
+			$table->foreign('role_id')->references('id')->on('roles')
+						->onDelete('restrict')
+						->onUpdate('restrict');
+		});
 	}
 
 	public function down()
 	{
+		Schema::table('users', function(Blueprint $table) {
+			$table->dropForeign('users_role_id_foreign');
+		});
+		Schema::table('user_projects', function(Blueprint $table) {
+			$table->dropForeign('user_projects_user_id_foreign');
+		});
+		Schema::table('user_projects', function(Blueprint $table) {
+			$table->dropForeign('user_projects_project_id_foreign');
+		});
+		Schema::table('user_projects', function(Blueprint $table) {
+			$table->dropForeign('user_projects_role_id_foreign');
+		});
 		Schema::table('pages', function(Blueprint $table) {
 			$table->dropForeign('pages_project_id_foreign');
 		});
@@ -51,6 +88,9 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('project_settings', function(Blueprint $table) {
 			$table->dropForeign('project_settings_project_id_foreign');
+		});
+		Schema::table('role_permissions', function(Blueprint $table) {
+			$table->dropForeign('role_permissions_role_id_foreign');
 		});
 	}
 }

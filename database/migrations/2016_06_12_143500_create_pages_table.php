@@ -12,9 +12,10 @@ class CreatePagesTable extends Migration {
 			$table->integer('project_id')->unsigned();
 			$table->integer('parent')->unsigned()->nullable();
 			$table->integer('author')->unsigned();
+			$table->string('type');
 			$table->string('title');
 			$table->text('content');
-			$table->string('type');
+			$table->string('slug')->unique();
 			$table->enum('status', array('draft', 'published', 'hidden', 'deleted'));
 			$table->integer('number')->nullable();
 			$table->timestamps();

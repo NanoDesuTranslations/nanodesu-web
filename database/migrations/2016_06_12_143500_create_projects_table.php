@@ -9,6 +9,7 @@ class CreateProjectsTable extends Migration {
 	{
 		Schema::create('projects', function(Blueprint $table) {
 			$table->increments('id');
+			$table->string('slug')->unique();
 			$table->string('title');
 			$table->timestamps();
 		});
